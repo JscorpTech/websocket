@@ -1,0 +1,19 @@
+{
+    "name": "jscorptech/websocket",
+    "autoload": {
+        "psr-4": {
+            "JscorpTech\\Websocket\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "A'zamov Samandar",
+            "email": "JscorpTech@gmail.com"
+        }
+    ],
+    "require": {
+        "workerman/workerman": "^4.2",
+        "predis/predis": "^2.3",
+        "illuminate/support": "*"
+    }
+}
