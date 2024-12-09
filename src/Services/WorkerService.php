@@ -17,9 +17,10 @@ class WorkerService
 
         $worker = new Worker(socket_name: "websocket://$host:$port");
         $service = new WebsocketService();
-        $worker->onConnect = function ($connection) use ($service, $handler) {
-            $service->addGroup("all", $connection);
+        $worker->onWebSocketConnect = function ($connection, $header) use ($service, $handler) {
+            $connection->params = $_GET;
             $handler->onConnect($connection, $service);
+            $service->addGroup("all", $connection);
         };
         $worker->onMessage = function ($connection, $data) use ($handler, $service) {
             $handler->onMessage($connection, $data, $service);

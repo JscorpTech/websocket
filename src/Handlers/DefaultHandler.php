@@ -8,20 +8,20 @@ class DefaultHandler implements WebsocketInterface
 {
     public function onConnect($connection, $service): void
     {
-        $service->addGroup("chat_1", $connection);
+        $service->addGroup($connection->params['chat_id'], $connection);
         // TODO: Implement onConnect() method.
     }
 
     public function onMessage($connection, $message, $service): void
     {
         print("new message: $message");
-        $service->sendGroupMessage("chat_1", $message);
+        $service->sendGroupMessage($connection->params['chat_id'], $message);
         // TODO: Implement onMessage() method.
     }
 
     public function onClose($connection, $service): void
     {
         print("close connection");
-        $service->removeGroup("chat_1");
+        $service->removeGroup($connection->params['chat_id'], $connection);
     }
 }
