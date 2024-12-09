@@ -28,7 +28,7 @@ class Test extends Command
      */
     public function handle(): void
     {
-        WebsocketService::sendGroupMessages("default", json_encode([
+        WebsocketService::sendGroupMessages("all", json_encode([
             "name" => "JscorpTech",
             "email" => "admin@jscorp.com",
             "github" => "JscorpTech",
