@@ -13,7 +13,7 @@ class WebsocketServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/websocket.php' => config_path('websocket.php'),
-        ], "config");
+        ], "websocket");
     }
 
     public function boot(): void
