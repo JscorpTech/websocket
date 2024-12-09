@@ -3,7 +3,7 @@
 namespace JscorpTech\Websocket;
 
 use Illuminate\Support\ServiceProvider;
-use JscorpTech\Websocket\Commands\Redis;
+use JscorpTech\Websocket\Commands\Test;
 use JscorpTech\Websocket\Commands\Websocket;
 
 class WebsocketServiceProvider extends ServiceProvider
@@ -22,7 +22,7 @@ class WebsocketServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Websocket::class,
-                Redis::class,
+                Test::class,
             ]);
         }
     }

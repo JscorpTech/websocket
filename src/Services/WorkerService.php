@@ -18,12 +18,14 @@ class WorkerService
         $worker = new Worker(socket_name: "websocket://$host:$port");
         $service = new WebsocketService();
         $worker->onConnect = function ($connection) use ($service, $handler) {
+            $service->addGroup("all", $connection);
             $handler->onConnect($connection, $service);
         };
         $worker->onMessage = function ($connection, $data) use ($handler, $service) {
             $handler->onMessage($connection, $data, $service);
         };
         $worker->onClose = function ($connection) use ($service, $handler) {
+            $service->removeGroup("all", $connection);
             $handler->onClose($connection, $service);
         };
         $worker->onWorkerStart = function () use ($service) {
@@ -34,7 +36,7 @@ class WorkerService
                 "password" => $redis_config['password'] ?? null,
             ]);
             Timer::add(0.1, function () use ($redis, $service) {
-                $data = $redis->rpop(config("websocket.redis.channel.websocket"));
+                $data = $redis->rpop(config("websocket.redis.channel", "websocket"));
                 if ($data) {
                     preg_match("/^(.*)_(.*)_(.*)$/", $data, $matches);
                     $action = $matches[1];
@@ -42,7 +44,11 @@ class WorkerService
                     $message = $matches[3];
                     if ($action == "send_message") {
                         foreach ($service->getGroup($group) as $connection) {
-                            $connection->send($message);
+                            try {
+                                $connection->send($message);
+                            } catch (\Exception $exception) {
+                                print_r($exception->getMessage());
+                            }
                         }
                     }
                 }

@@ -14,7 +14,8 @@ class DefaultHandler implements WebsocketInterface
 
     public function onMessage($connection, $message, $service): void
     {
-        print("new message");
+        print("new message: $message");
+        $connection->send($message);
         // TODO: Implement onMessage() method.
     }
 

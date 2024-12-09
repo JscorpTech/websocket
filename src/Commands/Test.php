@@ -7,21 +7,21 @@ use JscorpTech\Websocket\Services\WebsocketService;
 use Workerman\Worker;
 use Predis\Client;
 
-class Redis extends Command
+class Test extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'jst:redis';
+    protected $signature = 'jst:websocket-test';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run websocket server';
+    protected $description = 'Test websocket server';
 
     /**
      * Execute the console command.
@@ -29,7 +29,10 @@ class Redis extends Command
     public function handle(): void
     {
         WebsocketService::sendGroupMessages("default", json_encode([
-            "name" => "Samandar"
+            "name" => "JscorpTech",
+            "email" => "admin@jscorp.com",
+            "github" => "JscorpTech",
+            "repo" => "https://github.com/JscorpTech/websocket/",
         ]));
     }
 }
