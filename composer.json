@@ -15,5 +15,12 @@
         "workerman/workerman": "^4.2",
         "predis/predis": "^2.3",
         "illuminate/support": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JscorpTech\\Websocket\\WebsocketServiceProvider"
+            ]
+        }
     }
 }
