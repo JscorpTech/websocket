@@ -3,11 +3,7 @@
 namespace JscorpTech\Websocket\Commands;
 
 use Illuminate\Console\Command;
-use JscorpTech\Websocket\Services\WebsocketService;
 use JscorpTech\Websocket\Services\WorkerService;
-use Workerman\Worker;
-use Predis\Client;
-use Workerman\Timer;
 
 class Websocket extends Command
 {
