@@ -11,25 +11,20 @@ class WebsocketService
 {
     public array $groups;
 
-    public function sendGroupMessage(string $group, string $message): void
-    {
-        ///
-    }
-
     public function addGroup($group, $connection): int
     {
         $this->groups[$group][$connection->id] = $connection;
         return $connection->id;
     }
 
-    public static function sendGroupMessages($group, $data): void
+    public function sendGroupMessage($group, $data): void
     {
         $redis = new Client([
             "host" => config("websocket.redis.host"),
             "port" => config("websocket.redis.port"),
             "password" => config("websocket.redis.password"),
         ]);
-        $redis->rpush("websocket", ["send_message_" . $group . "_$data"]);
+        $redis->rpush("websocket", ["send_message_:_" . $group . "_:_$data"]);
     }
 
     /**

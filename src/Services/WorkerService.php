@@ -38,7 +38,7 @@ class WorkerService
             Timer::add(0.1, function () use ($redis, $service) {
                 $data = $redis->rpop(config("websocket.redis.channel", "websocket"));
                 if ($data) {
-                    preg_match("/^(.*)_(.*)_(.*)$/", $data, $matches);
+                    preg_match("/^(.*)_:_(.*)_:_(.*)$/", $data, $matches);
                     $action = $matches[1];
                     $group = $matches[2];
                     $message = $matches[3];
